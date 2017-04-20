@@ -1,0 +1,25 @@
+Informações de sequencia por onde começar?
+
+1 - Criar o banco de dados;
+    Aqui você pode criar todo o seu banco de dados, de como ele deve ser, com suas
+tabelas e tudo mais. 
+   recomendo para cada tabela já inserir um registro para fins de confirmação visual.
+
+2 - Criar toda estrutura Model;
+    ou seja criar as classes que representas as tabelas no banco de dados
+
+3 - Criar o DAO "Data Access Object "
+    aqui você vai criar a infernace DAO, depois toda a estrtura de todos os model
+que vai trabalhar junto ao banco de dados. Escrevendo o Insert, Update, Delete e Selects 
+e não esquecer de criar a classe responsavel pela conexão junto ao banco de dados. 
+
+4 - Criar as lista de tabelas "AbstractTableModel" das classes que vai apresentar dados
+no componente JTabela
+
+5 - Você pode começar a escrever o Controle "Ctrl" da sua aplicação a famosa "Regra de negócio"
+    Aqui é a fase que determina os limites, os requisitos mínimos desejados, antes de enviar
+para o banco de dados. 
+
+6 - Começar a desenvolver as telas no JForm e depois vincular a mesma ao controle. 
+    aqui é comun precisarmos ajustar o controle as vezes, pois podemos deixar passar 
+alguma coisa despercebido. 

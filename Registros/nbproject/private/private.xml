@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Meus Teste">
-            <file>file:/Users/Andeson/NetBeansProjects/Registros/src/registros/BancoDeDados.java</file>
-            <file>file:/Users/Andeson/NetBeansProjects/Registros/src/registros/FormTela.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/Informações.txt</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/dao/Conexao.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/dao/Dao.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/dao/TabelaDao.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/View/FormPrincipal.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/Model/Tabela.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/Ctrol/TabelaCtrl.java</file>
+            <file>file:/Users/Andeson/Documents/Minhas%20Produções/Java/Registros/src/Ctrol/TabelaTab.java</file>
         </group>
     </open-files>
 </project-private>
