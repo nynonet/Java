@@ -6,6 +6,7 @@
 package Ctrol;
 
 import Model.Tabela;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,8 +14,8 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Andeson
  */
-public class TabelaTab extends AbstractTableModel{
-    
+public class TabelaTab extends AbstractTableModel {
+
     private String colunas[] = {"ID", "NOME", "VALOR", "DATA", "ATIVO?"};
     private List<Tabela> lista;
 
@@ -24,7 +25,7 @@ public class TabelaTab extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return lista.size();
+        return lista.size();
     }
 
     @Override
@@ -39,18 +40,24 @@ public class TabelaTab extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch ( columnIndex ) {
-            case 0 : return lista.get(rowIndex).getId();
-            case 1 : return lista.get(rowIndex).getNome();
-            case 2 : return lista.get(rowIndex).getValor();
-            case 3 : return lista.get(rowIndex).getData();
-            case 4 : return lista.get(rowIndex).isAtivo();
-            default : return "";
-        } 
+        switch (columnIndex) {
+            case 0:
+                return lista.get(rowIndex).getId();
+            case 1:
+                return lista.get(rowIndex).getNome();
+            case 2:
+                return lista.get(rowIndex).getValor();
+            case 3:
+                return (Date) lista.get(rowIndex).getData().getTime();
+            case 4:
+                return lista.get(rowIndex).isAtivo();
+            default:
+                return "";
+        }
     }
-    
-    public Tabela getRegistro(int index){
+
+    public Tabela getRegistro(int index) {
         return lista.get(index);
     }
-    
+
 }

@@ -80,7 +80,7 @@ public class TabelaDao implements Dao<Tabela> {
 
     @Override
     public List<Tabela> getRegistro() {
-        String SQL = "SELECT nome, valor, ativo, data FROM tabela";
+        String SQL = "SELECT id, nome, valor, ativo, data FROM tabela";
         List<Tabela> retorno = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -132,5 +132,23 @@ public class TabelaDao implements Dao<Tabela> {
 
         return retorno;
     }
+    
+    public Object getValor( String campo ) {
+        String SQL = "SELECT "+campo+" FROM tabela";
+        Object retorno = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                retorno = rs.getObject(1);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return retorno;
+    }    
 
 }
