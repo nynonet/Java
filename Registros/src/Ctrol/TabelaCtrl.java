@@ -57,6 +57,11 @@ public class TabelaCtrl {
             case DT_MIN : corpo = "to_char( min(data), 'dd/mm/yyyy hh:mm:ss') as minn";  break;
             default : corpo = "";
         }
+       
+        if (corpo.length()==0) {
+            JOptionPane.showMessageDialog(null, "Resumo não informado!");
+            return "";
+        }
         
         Object r = tabelaDao.getValor(corpo);
         

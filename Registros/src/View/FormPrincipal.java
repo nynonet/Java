@@ -310,6 +310,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         edVlrAvg.setText(controle.getResumo(TipoResumo.VL_AVG));
         edDatMax.setText(controle.getResumo(TipoResumo.DT_MAX));
         edDatMin.setText(controle.getResumo(TipoResumo.DT_MIN));
+        lbQtde.setText(controle.getResumo(TipoResumo.TT_A));
         jTable1.setModel(controle.getRegistros());
 
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -10,7 +10,7 @@ package Ctrol;
  * @author Andeson
  */
 public enum TipoResumo {
-    VL_MIN(1), VL_MAX(1), VL_AVG(1), DT_MIN(2), DT_MAX(2);
+    VL_MIN(1), VL_MAX(1), VL_AVG(1), DT_MIN(2), DT_MAX(2), TT_A(3);
     private int tipo;
 
     private TipoResumo(int tipo) {
