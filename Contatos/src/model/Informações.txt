@@ -1,0 +1,13 @@
+O que é o pacote Model?
+
+Dentro de um padrão de projeto denominado MVC (Model View Controller) o Model
+é o responsável por gerenciar todas as classes, ou seja é nela que vamos organizar
+sempre a estrutura de como serão os dados e seus tipos. 
+
+Exemplo: Os contatos de uma agenda
+
+Contatos possui diversos atributos, propriedades vinculados a ela, tais como:
+Nome, Endereço, Telefone, Data de Nascimento e etc... 
+
+sendo assim quando precisamos fazer alguma manutenção ou implementação na classe
+já sabemos em que pacote procurar e onde manipular.
