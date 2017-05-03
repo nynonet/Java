@@ -6,6 +6,9 @@
 package contatos;
 
 import Dao.Conexao;
+import Dao.ContatoDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 
@@ -20,9 +23,27 @@ public class Contatos {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Conexao c1 = new Conexao();
+//        Conexao c1 = new Conexao();
         
-        c1.FechaConexao();
+//        ContatoDAO cDao = new ContatoDAO(c1);
+        
+//        String SQL = " SELECT * FROM TABELA "; 
+//        String filtro ="' OR 1=1; -- ";
+//        String Where = "WHERE nome LIKE '%"+filtro+"%'";
+//        
+//        System.out.println(SQL+Where);
+//        
+        
+//        try {
+//            
+//            cDao.getRegistros("WHERE nome like '% %'");
+//        
+//        
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+        
+//        c1.FechaConexao();
         
     }
     
