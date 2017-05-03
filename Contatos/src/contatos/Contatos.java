@@ -5,6 +5,10 @@
  */
 package contatos;
 
+import Dao.Conexao;
+import javax.swing.JFrame;
+
+
 /**
  *
  * @author Andeson
@@ -16,6 +20,10 @@ public class Contatos {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Conexao c1 = new Conexao();
+        
+        c1.FechaConexao();
+        
     }
     
 }

@@ -1,0 +1,15 @@
+O que é o pacote DAO? 
+é Data Access Objetc,  
+
+Dentro de um padrão de projeto denominado MVC (Model View Controller) o DAO
+é o responsável por gerenciar todas as classes que vincula-se com o banco de dados, 
+ou seja é nela que vamos organizar todas as estruturas de SQL como Insert, Update, Delete,
+Select, Create e etc...
+
+Aqui vamos colocar:
+
+A nossa conexão com o banco de dados, usando o Connection do pacote Java.SQL
+a connection vai abrir uma conexão entre a aplicação e o banco de dados.
+
+Atenção: Deve-se adicionar o driver de conexão com o banco de dados que será
+utilizado.

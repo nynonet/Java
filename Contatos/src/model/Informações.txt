@@ -11,3 +11,26 @@ Nome, Endereço, Telefone, Data de Nascimento e etc...
 
 sendo assim quando precisamos fazer alguma manutenção ou implementação na classe
 já sabemos em que pacote procurar e onde manipular.
+
+{comentários de aula}
+
+pacote model
+        Cadastros
+            Carteira de Clientes
+            Carteira de Fornecedores
+            Cadastro de Produtos
+            Cadastro de Serviços
+        Relatorios
+        Vendas
+        Compras
+
+Exemplos sistema de gestão
+
+Sistema de Gestão
+    Carteira de Clientes
+    Carteira de Fornecedores
+    Cadastro de Produtos
+    Cadastro de Serviços
+    Vendas
+    Compras
+    Relatórios
