@@ -44,7 +44,7 @@ public class TabelaTab extends AbstractTableModel {
             case 0:
                 return lista.get(rowIndex).getId();
             case 1:
-                return lista.get(rowIndex).getNome();
+                return lista.get(rowIndex).getNome();          
             case 2:
                 return lista.get(rowIndex).getValor();
             case 3:
