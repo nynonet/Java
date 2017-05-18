@@ -38,12 +38,13 @@ public class DependenteDAO implements ModeloDAO<Dependente>{
 
     @Override
     public void Atualizar(Dependente objeto) throws Exception {
-        String SQL = "UPDATE dependente SET nome=?, telefone=? "
+        String SQL = "UPDATE dependente SET nome=?, telefone=?, id_contato=? "
                     + "WHERE id = ?";
         PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
         ps.setString(1, objeto.getNome());
         ps.setString(2, objeto.getTelefone());
         ps.setInt(3, objeto.getContato().getId());
+        ps.setInt(4, objeto.getId());
         int qtd_registros = ps.executeUpdate();
 
         System.out.println("Quantidade de registro atualizado: " + qtd_registros);        
@@ -53,10 +54,10 @@ public class DependenteDAO implements ModeloDAO<Dependente>{
     public void Excluir(Dependente objeto) throws Exception {
         String SQL = "DELETE FROM dependente WHERE id = ?";
         PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
-        ps.setInt(1, objeto.getContato().getId());
+        ps.setInt(1, objeto.getId());
         int qtd_registros = ps.executeUpdate();
 
-        System.out.println("Quantidade de registro atualizado: " + qtd_registros);        
+        System.out.println("Quantidade de registro apagado: " + qtd_registros);        
     }
 
     @Override
@@ -71,12 +72,13 @@ public class DependenteDAO implements ModeloDAO<Dependente>{
         ContatoDAO c = new ContatoDAO(conexao);
 
         while (rs.next()) {
+            
             Dependente d = new Dependente();
             d.setId(rs.getInt("id"));
             d.setTelefone(rs.getString("telefone"));
             d.setNome(rs.getString("nome"));
             
-            d.setContato( c.getRegistro(rs.getInt("id_contato") ) );
+            d.setContato( c.getRegistro( rs.getInt("id_contato") ) );
 
             retorno.add(d);
         }
@@ -95,7 +97,7 @@ public class DependenteDAO implements ModeloDAO<Dependente>{
         
         //cria uma conexão com contato. 
         ContatoDAO c = new ContatoDAO(conexao);
-        
+                
         Dependente retorno = new Dependente();
 
         while (rs.next()) {
