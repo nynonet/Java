@@ -12,6 +12,7 @@ import javaandroid.DAO.Contato;
 import javaandroid.DAO.ContatoDao;
 import javaandroid.DAO.Parente;
 import javaandroid.DAO.ParenteDao;
+import javaandroid.DAO.TabDependentes;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -75,45 +76,7 @@ public class FormContato extends javax.swing.JFrame {
 
     }
 
-    private class TabelaP extends AbstractTableModel {
-
-        String coluna[] = {"Nome do Parente"};
-        List<Parente> lista;
-
-        public TabelaP(List<Parente> lista) {
-            this.lista = lista;
-        }
-
-        @Override
-        public int getRowCount() {
-            return lista.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return coluna.length;
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return coluna[column];
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            switch (columnIndex) {
-                case 0:
-                    return lista.get(rowIndex);
-                default:
-                    return "";
-            }
-        }
-
-        public Parente getParente(int rowIndex) {
-            return lista.get(rowIndex);
-        }
-
-    }
+    
 
     /**
      * Creates new form FormContato
@@ -147,9 +110,9 @@ public class FormContato extends javax.swing.JFrame {
         edNome.setText(contato.getNome());
         edTelefone.setText(contato.getTelefone());
 
-        TabelaP parentes = null;
+        TabDependentes parentes = null;
         try {
-            parentes = new TabelaP(ParenteBD.GetListaMeusParentes(contato));
+            parentes = new TabDependentes(ParenteBD.GetListaMeusParentes(contato));
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -550,7 +513,7 @@ public class FormContato extends javax.swing.JFrame {
            return; 
         }
         
-        TabelaP sel = (TabelaP) jTable2.getModel();
+        TabDependentes sel = (TabDependentes) jTable2.getModel();
         
         Parente p = sel.getParente(jTable2.getSelectedRow());
         
@@ -563,40 +526,40 @@ public class FormContato extends javax.swing.JFrame {
         SetListaParentes();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormContato().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(FormContato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new FormContato().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField edNome;

@@ -18,9 +18,9 @@ public class Conexao {
     Connection con;
 
     public Conexao() {
-        String url = "jdbc:mysql://192.168.56.110:3306/contato";
+        String url = "jdbc:mysql://192.168.2.101:3306/contato";
         try {
-            con = DriverManager.getConnection(url, "root", "654321");
+            con = DriverManager.getConnection(url, "root", "Mysql12345");
         } catch (SQLException erro) {
             System.err.println("Erro no conectar com " + url);
             System.out.println(erro.getMessage());

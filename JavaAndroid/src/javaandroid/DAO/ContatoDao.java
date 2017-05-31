@@ -27,6 +27,7 @@ public class ContatoDao {
         PreparedStatement ps = Conexao.prepareCall(sql);
         ps.setString(1, contato.getNome().toUpperCase());
         ps.setString(2, contato.getTelefone());
+        
         ps.executeUpdate();
     }
 
@@ -74,6 +75,19 @@ public class ContatoDao {
             lista.add(c);
         }
         return lista;
+    }
+    
+    public ResultSet GetListaContatos(){
+        ResultSet rs = null;
+        String sql = "SELECT id, nome, telefone FROM contato ";
+        try {
+            PreparedStatement ps = Conexao.prepareCall(sql);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return rs;
     }
     
 }

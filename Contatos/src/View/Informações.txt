@@ -1,0 +1,11 @@
+O que é o pacote View?
+
+Dentro de um padrão de projeto denominado MVC (Model View Controller) A View
+é o responsável por gerenciar todos os formulários de interação com o usuário.
+
+Exemplo: as telas de cadastro, consultas, lançamentos e semelhantes.
+
+
+
+JFrame = Formulários "Master"
+JInternalFrame = Formulários "Filhos"
