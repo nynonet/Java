@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.Conexao;
 import Dao.ContatoDAO;
+import java.sql.Date;
 import java.util.Calendar;
 import model.Contato;
 
@@ -17,7 +18,9 @@ import model.Contato;
 public class ContatoCtrl {
 
     //variável para receber a conexão ativa com o banco de dados
-    private Conexao conexao;
+//    private Conexao conexao;
+    //gerencia toda a parte de banco de dados do cadastro de contato 
+    ContatoDAO contatoDAO;
 
     /**
      * Modificamos o construtor da classe para passar uma conexão existente.
@@ -25,15 +28,14 @@ public class ContatoCtrl {
      * @param conexao hum conexão já estabelecida com o banco de dados.
      */
     public ContatoCtrl(Conexao conexao) {
-        this.conexao = conexao;
+//        this.conexao = conexao;
+        contatoDAO = new ContatoDAO(conexao);
     }
 
-    //gerencia toda a parte de banco de dados do cadastro de contato 
-    ContatoDAO contatoDAO = new ContatoDAO(conexao);
 
     public String Novo(String nome, String email, String telefone,
-            Calendar nascimento) {
-        String msg = "OK";
+            String nascimento) {
+        String msg = "";
         
         if (nome.isEmpty()) {
             msg = "O nome do contato é obrigatório!";
@@ -42,22 +44,28 @@ public class ContatoCtrl {
         if (telefone.isEmpty()) {
             msg += "\nO número do telefone é obrigatório!"; 
         }
+        if (nascimento.isEmpty()) {
+            msg += "\nInforme a data de nasciemnto!";
+        }        
         
-        if (msg.length()>2) {
+        if (msg.length()>0) {
             return msg;
         }
         
         Contato c = new Contato();
         c.setNome(nome);
         c.setEmail(email);
-        c.setTelefone(telefone);
-//        c.setNascimento(nascimento);
+        c.setTelefone(telefone);        
+        Calendar datagrava = Calendar.getInstance();
+        datagrava.setTime(Date.valueOf(nascimento));
+        c.setNascimento(datagrava);
 
         try {
             contatoDAO.Inserir(c);
+            msg = "OK";
         } catch (Exception e) {
             msg = e.getMessage();
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         return msg;

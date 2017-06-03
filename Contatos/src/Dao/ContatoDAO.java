@@ -33,9 +33,12 @@ public class ContatoDAO implements ModeloDAO<Contato> {
         ps.setString(1, objeto.getNome());
         ps.setString(2, objeto.getTelefone());
         ps.setString(3, objeto.getEmail());
-//        Date dataInsert = new Date(objeto.getNascimento().getInstance().getTimeInMillis());
-//        ps.setDate(4, dataInsert);
-        ps.setDate(4, new Date(objeto.getNascimento().getInstance().getTimeInMillis()));
+
+//       Antes estava assim e pegando a data do sistema. 
+//        ps.setDate(4, new Date(objeto.getNascimento().getInstance().getTimeInMillis()));
+        
+        //agora correto pegando a data do objeto
+        ps.setDate(4, new Date(objeto.getNascimento().getTimeInMillis()));
         int qtd_registros = ps.executeUpdate();
 
         System.out.println("Quantidade de registro inserido: " + qtd_registros);

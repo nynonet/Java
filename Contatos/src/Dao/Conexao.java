@@ -16,9 +16,9 @@ import java.sql.SQLException;
 public class Conexao {
     
     private Connection com; //Recebe e mantem a conexão com o banco de dados
-    private String usuario = "fasb"; //usuário administrador do banco de dados
-    private String senha = "fasb"; //a senha do administrador do banco de dados
-    private String url = "jdbc:postgresql://192.168.2.101:5432/fasb"; //URL de Conexão
+    private String usuario = "root"; //usuário administrador do banco de dados
+    private String senha = "Mysql12345"; //a senha do administrador do banco de dados
+    private String url = "jdbc:mysql://192.168.2.101:3306/fasb"; //URL de Conexão
     
     /**
      * Método construtor alterado para já realizar a conexão com o banco

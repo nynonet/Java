@@ -7,6 +7,7 @@ package View;
 
 import Controller.ContatoCtrl;
 import Dao.Conexao;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,11 +22,12 @@ public class CadContato extends javax.swing.JInternalFrame {
     private boolean novoCad;
 
     private ContatoCtrl controle;
-    private Conexao conexao = new Conexao();
+    private Conexao conexao;
 
     public CadContato() {
         initComponents();
         ControleBotoes();
+        conexao = new Conexao();
         controle = new ContatoCtrl(conexao);
     }
 
@@ -207,6 +209,9 @@ public class CadContato extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Data Nascimento");
 
+        edNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        edNascimento.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -300,16 +305,18 @@ public class CadContato extends javax.swing.JInternalFrame {
         if (novoCad == true) {
             //novo cadastro
             //System.out.println("Você vai implementar o código para inserir aqui!");
-
+                        
             String resposta = controle.Novo(
                                         edNome.getText(),           //Nome
                                         edEmail.getText(),          //E-mail
                                         edTelefone.getText(),       //Telefone
-                                        null);//Nascimento
+                                        edNascimento.getText());//Nascimento
 
             if (!resposta.equals("OK")) {
                 JOptionPane.showMessageDialog(this, resposta);
                 return;
+            } else {
+                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             }
 
             System.out.println("Você está inserindo um novo cadastro");

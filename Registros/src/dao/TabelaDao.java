@@ -36,7 +36,10 @@ public class TabelaDao implements Dao<Tabela> {
             ps.setString(1, obj.getNome());
             ps.setDouble(2, obj.getValor());
             ps.setBoolean(3, obj.isAtivo());
-            ps.setDate(4, new Date( obj.getData().getInstance().getTimeInMillis() ));
+            Date d = new Date( obj.getData().getInstance().getTime().getTime() );
+            System.out.println("Antes da Hora D "+ d.toString());
+            ps.setDate(4, d);
+            
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
