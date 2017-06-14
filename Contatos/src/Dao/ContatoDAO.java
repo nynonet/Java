@@ -121,5 +121,16 @@ public class ContatoDAO implements ModeloDAO<Contato> {
         }
         return c;
     }
+    
+    public ResultSet getRegistros() throws Exception {
+        List<Contato> retorno = new ArrayList<>();
+        String SQL = "SELECT id,nome,telefone,email,nascimento "
+                + "FROM contatos";
+        PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
+
+        ResultSet rs = ps.executeQuery();
+
+        return rs;
+    }    
 
 }

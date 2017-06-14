@@ -5,6 +5,8 @@
         <group>
             <file>file:/Users/Andeson/Documents/ProjetosJava/JavaAndroid/src/javaandroid/VIEW/FormContato.java</file>
         </group>
-        <group name="Meus Teste"/>
+        <group name="Meus Teste">
+            <file>file:/Users/Andeson/Documents/MeusTrabalhos/Java/JavaAndroid/src/javaandroid/VIEW/NovoMasterDetailForm.java</file>
+        </group>
     </open-files>
 </project-private>

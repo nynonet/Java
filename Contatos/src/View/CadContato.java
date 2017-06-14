@@ -2,12 +2,18 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+    - Breve revisão
+    - Buscar todos os registro e fazer o navegador. 
+    - Fazer o Editar
+    - Imprimir uma lista
+
  */
+
 package View;
 
 import Controller.ContatoCtrl;
 import Dao.Conexao;
-import java.sql.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -310,7 +316,7 @@ public class CadContato extends javax.swing.JInternalFrame {
                                         edNome.getText(),           //Nome
                                         edEmail.getText(),          //E-mail
                                         edTelefone.getText(),       //Telefone
-                                        edNascimento.getText());//Nascimento
+                                        edNascimento.getText());    //Nascimento
 
             if (!resposta.equals("OK")) {
                 JOptionPane.showMessageDialog(this, resposta);

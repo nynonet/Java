@@ -6,8 +6,6 @@
 package Control;
 
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javaandroid.DAO.Conexao;
 import javaandroid.DAO.Contato;
 import javaandroid.DAO.ContatoDao;

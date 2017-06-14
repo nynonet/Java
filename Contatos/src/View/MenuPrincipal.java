@@ -127,8 +127,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cadcontato.setVisible(true);
         //fique visivel dentro da Área de trabalho do meu aplicativo 
         // "JDesktopPane1" 
-        jDesktopPane1.add(cadcontato);
-        
+        jDesktopPane1.add(cadcontato);        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
