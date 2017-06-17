@@ -47,7 +47,12 @@ public class ContatoCtrl {
         }
 
     }
-
+    
+    /**
+     * Navega entre os registros conforme tipo de operaç
+     * @param operacao
+     * @return 
+     */
     public Contato Navegacao(Tipo operacao) {
         boolean nav = false;
         Contato resposta = new Contato();
@@ -55,12 +60,16 @@ public class ContatoCtrl {
             switch (operacao) {
                 case ANTERIOR:
                     nav = dados.previous();
+                    break;
                 case PRIMEIRO:
                     nav = dados.first();
+                    break;
                 case PROXIMO:
                     nav = dados.next();
+                    break;
                 case ULTIMO:
                     nav = dados.last();
+                    break;
                 default: ;
             }
 
@@ -76,7 +85,7 @@ public class ContatoCtrl {
                 resposta.setNascimento(data);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             resposta.setId(-1);
         }
         
@@ -91,6 +100,7 @@ public class ContatoCtrl {
     public ContatoCtrl(Conexao conexao) {
 //        this.conexao = conexao;
         contatoDAO = new ContatoDAO(conexao);
+        atualizaDados();
     }
 
     public String Novo(String nome, String email, String telefone,

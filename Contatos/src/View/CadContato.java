@@ -15,6 +15,7 @@ package View;
 import Controller.ContatoCtrl;
 import Dao.Conexao;
 import javax.swing.JOptionPane;
+import model.Contato;
 
 /**
  *
@@ -72,6 +73,40 @@ public class CadContato extends javax.swing.JInternalFrame {
         edEmail.setText("");
         edTelefone.setText("");
         edNascimento.setText("");
+    }
+    
+    public void Movimenta(ContatoCtrl.Tipo tipo ) {
+         Contato c = controle.Navegacao(tipo);
+         //deixa todos os campos com valores em branco. 
+         edCodigo.setText("");
+         edNome.setText("");
+         edEmail.setText("");
+         edTelefone.setText("");
+         edNascimento.setText("");
+         
+         
+         //comprava os valores
+         if ((c == null) || (c.getId() == -1) || (c.getId()==0) ) { 
+           
+             if (tipo == ContatoCtrl.Tipo.ANTERIOR && c.getId()==0) {
+                 JOptionPane.showMessageDialog(this, "Você já está no primerio registro!");
+                 Movimenta( ContatoCtrl.Tipo.PRIMEIRO );
+             }
+             if (tipo == ContatoCtrl.Tipo.PROXIMO && c.getId()==0) {
+                 JOptionPane.showMessageDialog(this, "Você já está no ultimo registro!");
+                 Movimenta( ContatoCtrl.Tipo.ULTIMO );
+             }
+             
+             return; // retorna "não faz nada"
+         }
+                  
+         //preenche os campos com seus valores
+         edCodigo.setText(String.valueOf(c.getId()));
+         edNome.setText(c.getNome());
+         edEmail.setText(c.getEmail());
+         edTelefone.setText(c.getTelefone());
+         edNascimento.setText(String.format("yyyy-MM-dd", c.getNascimento().getTime()));
+         
     }
 
     /**
@@ -147,10 +182,25 @@ public class CadContato extends javax.swing.JInternalFrame {
         });
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Anterior.jpeg"))); // NOI18N
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         btnProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/proximo_318-142980.jpeg"))); // NOI18N
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
 
         btnUltimo.setText("Último");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +386,23 @@ public class CadContato extends javax.swing.JInternalFrame {
 
     private void btnPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeiroActionPerformed
         // TODO add your handling code here:
+        Movimenta(ContatoCtrl.Tipo.PRIMEIRO);
     }//GEN-LAST:event_btnPrimeiroActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+        Movimenta(ContatoCtrl.Tipo.ANTERIOR);
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+        // TODO add your handling code here:
+        Movimenta(ContatoCtrl.Tipo.PROXIMO);
+    }//GEN-LAST:event_btnProximoActionPerformed
+
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+        // TODO add your handling code here:
+        Movimenta(ContatoCtrl.Tipo.ULTIMO);
+    }//GEN-LAST:event_btnUltimoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

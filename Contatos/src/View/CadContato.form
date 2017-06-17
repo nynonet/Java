@@ -129,6 +129,9 @@
               <Image iconType="3" name="/View/Anterior.jpeg"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProximo">
           <Properties>
@@ -136,11 +139,17 @@
               <Image iconType="3" name="/View/proximo_318-142980.jpeg"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProximoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnUltimo">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xda;ltimo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnFechar">
           <Properties>

@@ -76,7 +76,7 @@ public class ContatoDAO implements ModeloDAO<Contato> {
     public List<Contato> getRegistros(String filtro) throws Exception {
         List<Contato> retorno = new ArrayList<>();
         String SQL = "SELECT id,nome,telefone,email,nascimento "
-                + "FROM contatos " + filtro;
+                + "FROM contato " + filtro;
         PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
 
         ResultSet rs = ps.executeQuery();
@@ -102,7 +102,7 @@ public class ContatoDAO implements ModeloDAO<Contato> {
     @Override
     public Contato getRegistro(int id) throws Exception {
         String SQL = "SELECT id, nome, telefone, email, nascimento "
-                + "FROM contatos WHERE id = ?";
+                + "FROM contato WHERE id = ?";
         PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
@@ -125,7 +125,7 @@ public class ContatoDAO implements ModeloDAO<Contato> {
     public ResultSet getRegistros() throws Exception {
         List<Contato> retorno = new ArrayList<>();
         String SQL = "SELECT id,nome,telefone,email,nascimento "
-                + "FROM contatos";
+                + "FROM contato";
         PreparedStatement ps = conexao.getConexao().prepareStatement(SQL);
 
         ResultSet rs = ps.executeQuery();
