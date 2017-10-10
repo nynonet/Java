@@ -9,11 +9,11 @@
     - Imprimir uma lista
 
  */
-
 package View;
 
 import Controller.ContatoCtrl;
 import Dao.Conexao;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import model.Contato;
 
@@ -36,6 +36,8 @@ public class CadContato extends javax.swing.JInternalFrame {
         ControleBotoes();
         conexao = new Conexao();
         controle = new ContatoCtrl(conexao);
+        //trazer sempre no ultimo registro cadastrado
+        Movimenta(ContatoCtrl.Tipo.ULTIMO);
     }
 
     /**
@@ -74,39 +76,39 @@ public class CadContato extends javax.swing.JInternalFrame {
         edTelefone.setText("");
         edNascimento.setText("");
     }
-    
-    public void Movimenta(ContatoCtrl.Tipo tipo ) {
-         Contato c = controle.Navegacao(tipo);
-         //deixa todos os campos com valores em branco. 
-         edCodigo.setText("");
-         edNome.setText("");
-         edEmail.setText("");
-         edTelefone.setText("");
-         edNascimento.setText("");
-         
-         
-         //comprava os valores
-         if ((c == null) || (c.getId() == -1) || (c.getId()==0) ) { 
-           
-             if (tipo == ContatoCtrl.Tipo.ANTERIOR && c.getId()==0) {
-                 JOptionPane.showMessageDialog(this, "Você já está no primerio registro!");
-                 Movimenta( ContatoCtrl.Tipo.PRIMEIRO );
-             }
-             if (tipo == ContatoCtrl.Tipo.PROXIMO && c.getId()==0) {
-                 JOptionPane.showMessageDialog(this, "Você já está no ultimo registro!");
-                 Movimenta( ContatoCtrl.Tipo.ULTIMO );
-             }
-             
-             return; // retorna "não faz nada"
-         }
-                  
-         //preenche os campos com seus valores
-         edCodigo.setText(String.valueOf(c.getId()));
-         edNome.setText(c.getNome());
-         edEmail.setText(c.getEmail());
-         edTelefone.setText(c.getTelefone());
-         edNascimento.setText(String.format("yyyy-MM-dd", c.getNascimento().getTime()));
-         
+
+    public void Movimenta(ContatoCtrl.Tipo tipo) {
+        Contato c = controle.Navegacao(tipo);
+        //deixa todos os campos com valores em branco. 
+        edCodigo.setText("");
+        edNome.setText("");
+        edEmail.setText("");
+        edTelefone.setText("");
+        edNascimento.setText("");
+
+        //comprava os valores
+        if ((c == null) || (c.getId() == -1) || (c.getId() == 0)) {
+
+            if (tipo == ContatoCtrl.Tipo.ANTERIOR && c.getId() == 0) {
+                JOptionPane.showMessageDialog(this, "Você já está no primerio registro!");
+                Movimenta(ContatoCtrl.Tipo.PRIMEIRO);
+            }
+            if (tipo == ContatoCtrl.Tipo.PROXIMO && c.getId() == 0) {
+                JOptionPane.showMessageDialog(this, "Você já está no ultimo registro!");
+                Movimenta(ContatoCtrl.Tipo.ULTIMO);
+            }
+
+            return; // retorna "não faz nada"
+        }
+
+        //preenche os campos com seus valores
+        edCodigo.setText(String.valueOf(c.getId()));
+        edNome.setText(c.getNome());
+        edEmail.setText(c.getEmail());
+        edTelefone.setText(c.getTelefone());
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        edNascimento.setText(   s.format(c.getNascimento().getTime()) );
+
     }
 
     /**
@@ -232,7 +234,7 @@ public class CadContato extends javax.swing.JInternalFrame {
                 .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +291,7 @@ public class CadContato extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(edEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(edNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -352,35 +354,44 @@ public class CadContato extends javax.swing.JInternalFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // Alterar Cadastro
+        if (edCodigo.getText().isEmpty()) {
+           JOptionPane.showMessageDialog(this, "Contato não foi selecionado!");
+           return;
+        }
+        
         novoCad = false;
         ControleBotoes();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // Salvar Cadastro
+
+        String resposta;
+
         if (novoCad == true) {
             //novo cadastro
-            //System.out.println("Você vai implementar o código para inserir aqui!");
-                        
-            String resposta = controle.Novo(
-                                        edNome.getText(),           //Nome
-                                        edEmail.getText(),          //E-mail
-                                        edTelefone.getText(),       //Telefone
-                                        edNascimento.getText());    //Nascimento
-
-            if (!resposta.equals("OK")) {
-                JOptionPane.showMessageDialog(this, resposta);
-                return;
-            } else {
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-            }
-
-            System.out.println("Você está inserindo um novo cadastro");
+            resposta = controle.Novo(
+                    edNome.getText(), //Nome
+                    edEmail.getText(), //E-mail
+                    edTelefone.getText(), //Telefone
+                    edNascimento.getText());    //Nascimento
         } else {
             //alterando cadastro
-            //System.out.println("Você vai implementar o código para alterar aqui!");
-            System.out.println("Você está alterando um cadastro");
+            resposta = controle.Alterar(edCodigo.getText(),
+                    edNome.getText(),
+                    edEmail.getText(),
+                    edTelefone.getText(),
+                    edNascimento.getText());
+
         }
+        
+        if (!resposta.equals("OK")) {
+            JOptionPane.showMessageDialog(this, resposta);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Operação realizada com sucesso!");
+        }
+        
         ControleBotoes();
     }//GEN-LAST:event_btnSalvarActionPerformed
 

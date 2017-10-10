@@ -139,5 +139,57 @@ public class ContatoCtrl {
 
         return msg;
     }
+    /**
+     * Alterar um cadastro de contato.
+     * @param id 
+     * @param nome
+     * @param email
+     * @param telefone
+     * @param nascimento
+     * @return Ok para sucesso! qualquer outra coisa para falha.
+     */
+    public String Alterar(String id, String nome, String email, String telefone,
+            String nascimento) {
+        String msg = "";
+
+        if (id.isEmpty()) {
+            msg = "Contato sem id!";
+        }
+        
+        if (nome.isEmpty()) {
+            msg += "\nO nome do contato é obrigatório!";
+        }
+        
+        if (telefone.isEmpty()) {
+            msg += "\nO número do telefone é obrigatório!";
+        }
+        
+        if (nascimento.isEmpty()) {
+            msg += "\nInforme a data de nasciemnto!";
+        }
+
+        if (msg.length() > 0) {
+            return msg;
+        }
+
+        Contato c = new Contato();
+        c.setId(Integer.parseInt(id));
+        c.setNome(nome);
+        c.setEmail(email);
+        c.setTelefone(telefone);
+        Calendar datagrava = Calendar.getInstance();
+        datagrava.setTime(Date.valueOf(nascimento));
+        c.setNascimento(datagrava);
+
+        try {
+            contatoDAO.Atualizar(c);
+            msg = "OK";
+        } catch (Exception e) {
+            msg = e.getMessage();
+            // e.printStackTrace();
+        }
+
+        return msg;
+    }    
 
 }
