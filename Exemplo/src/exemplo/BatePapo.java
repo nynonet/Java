@@ -31,6 +31,7 @@ public class BatePapo {
         String msg;
         boolean sair = true;
         boolean segunda_pessoa = false;
+        
         while (sair) {
             String pergunta;  //Pessoa que irá fazer a pergunta
             String resposta;  //Pessoa que irá responder
