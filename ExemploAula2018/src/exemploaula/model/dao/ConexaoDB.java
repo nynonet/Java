@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @author LAB1
  */
 public class ConexaoDB {
+    private String meuIP = "192.168.56.101";
     //nome do usuário a logar no banco de dados
     private String usuario;
     
@@ -28,8 +29,8 @@ public class ConexaoDB {
      */
     public ConexaoDB() {
         this.usuario = "root";
-        this.senha = "";
-        this.url = "127.0.0.1:3306/fasb"; //seu servidor + banco de dados.
+        this.senha = "Fasb1234";
+        this.url = meuIP+":3306/fasb"; //seu servidor + banco de dados.
     }
     
     /** as
@@ -40,7 +41,7 @@ public class ConexaoDB {
     public ConexaoDB(String usuario, String senha) {
         this.usuario = usuario;
         this.senha = senha;
-        this.url = "127.0.0.1:3306/fasb";
+        this.url = meuIP+":3306/fasb";
     }
     
     /**
