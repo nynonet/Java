@@ -35,7 +35,7 @@ public class FrmContato extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Nome", "Title 3", "Title 4"
             }
         ));
         jScrollPane1.setViewportView(TabelaContatos);
