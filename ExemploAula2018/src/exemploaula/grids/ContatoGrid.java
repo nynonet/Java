@@ -19,6 +19,14 @@ public class ContatoGrid extends AbstractTableModel {
     
     String[] colunas = {"Código", "Nome"}; //Colunas da tabela
     
+    /**
+     * Método construtor 
+     * @param lista passando a lista que será apresentada.
+     */
+    public ContatoGrid(List<Contato> lista) {
+        this.lista = lista;
+    }
+    
     @Override
     public int getRowCount() {
         //qual a quantidade de registros? 

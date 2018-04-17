@@ -1,7 +1,10 @@
 package exemploaula.view;
 
+import exemploaula.grids.ContatoGrid;
 import exemploaula.model.dao.ConexaoDB;
+import exemploaula.model.dao.ContatoDao;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,9 +15,16 @@ public class FrmContato extends javax.swing.JFrame {
     
     //cria um conector para o banco de dados.
     private ConexaoDB conexaoDB;
-
+    //cria uma variável para controle de dados na tabela
+    private ContatoGrid contatoGrid;
+    
     public FrmContato() {
         initComponents();
+        
+        //inicia com uma lista vazia dos contatos.
+        this.contatoGrid = new ContatoGrid( new ArrayList<>() );
+        TabelaContatos.setModel( this.contatoGrid );
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -49,17 +59,22 @@ public class FrmContato extends javax.swing.JFrame {
 
         btnListar.setText("Listar");
         btnListar.setEnabled(false);
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnConectar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListar)
-                .addGap(0, 212, Short.MAX_VALUE))
+                .addGap(35, 212, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,6 +113,19 @@ public class FrmContato extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnConectarActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        // TODO add your handling code here:    
+        
+        try {
+            ContatoDao contatoDB = new ContatoDao(conexaoDB);
+            contatoGrid = new ContatoGrid(contatoDB.getRegistros(""));
+            TabelaContatos.setModel(contatoGrid);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_btnListarActionPerformed
 
     /**
      * @param args the command line arguments
