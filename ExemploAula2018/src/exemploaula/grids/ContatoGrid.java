@@ -17,7 +17,7 @@ public class ContatoGrid extends AbstractTableModel {
     
     List<Contato> lista; //lista de contatos que será passada. 
     
-    String[] colunas = {"Código", "Nome"}; //Colunas da tabela
+    String[] colunas = {"Código", "Nome"}; //Colunas da tabela  
     
     /**
      * Método construtor 

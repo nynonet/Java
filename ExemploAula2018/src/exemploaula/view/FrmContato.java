@@ -1,6 +1,7 @@
 package exemploaula.view;
 
 import exemploaula.grids.ContatoGrid;
+import exemploaula.model.Contato;
 import exemploaula.model.dao.ConexaoDB;
 import exemploaula.model.dao.ContatoDao;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ public class FrmContato extends javax.swing.JFrame {
         TabelaContatos = new javax.swing.JTable();
         btnConectar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +47,7 @@ public class FrmContato extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Nome", "Title 3", "Title 4"
+                "ID", "Nome", "Telefone", "Sexo"
             }
         ));
         jScrollPane1.setViewportView(TabelaContatos);
@@ -65,6 +67,14 @@ public class FrmContato extends javax.swing.JFrame {
             }
         });
 
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setEnabled(false);
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,7 +84,9 @@ public class FrmContato extends javax.swing.JFrame {
                 .addComponent(btnConectar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListar)
-                .addGap(35, 212, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdicionar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,7 +95,8 @@ public class FrmContato extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConectar)
-                    .addComponent(btnListar))
+                    .addComponent(btnListar)
+                    .addComponent(btnAdicionar))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
@@ -102,11 +115,15 @@ public class FrmContato extends javax.swing.JFrame {
             btnListar.setEnabled(true);
             // Desabilita o botão de conectar
             btnConectar.setEnabled(false);
+            // Habilita botão Adicionar
+            btnAdicionar.setEnabled(true);
         } catch (SQLException ex) {
             //caso erro! desabilita o botão listar
             btnListar.setEnabled(false);
             //Habilita o botão de conectar.
             btnConectar.setEnabled(true);
+            // Desabilitar botão Adicionar
+            btnAdicionar.setEnabled(false);
             //Mostra o erro ao Usuário
             JOptionPane.showMessageDialog(rootPane, "Erro apresentado:\n"+
                     ex.getMessage());
@@ -126,6 +143,36 @@ public class FrmContato extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        //Peço ao usuário para entrar com um Nome
+        String nome = JOptionPane.showInputDialog( "Informe o Nome:" );
+        //System.out.println("Nome informado é: "+nome);
+        
+        //se cancelou..
+        if (nome == null){
+            return; //isso é igual a abortar operação
+        }
+        
+        //Veifico se ele informou algum nome
+        if (nome.trim().length()==0){
+           JOptionPane.showMessageDialog(rootPane, "Você precisa "
+                   + "informar o nome do contato.");
+           return;
+        }
+        
+        try {
+            ContatoDao contatoDao = new ContatoDao(conexaoDB);
+            Contato c = new Contato();
+            c.setNome(nome);
+            contatoDao.Inserir( c );
+            
+            btnListar.doClick();
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,6 +211,7 @@ public class FrmContato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaContatos;
+    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnListar;
     private javax.swing.JScrollPane jScrollPane1;
