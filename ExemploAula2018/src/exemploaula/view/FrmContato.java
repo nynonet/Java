@@ -13,20 +13,38 @@ import javax.swing.JOptionPane;
  * @author macbook
  */
 public class FrmContato extends javax.swing.JFrame {
-    
+
     //cria um conector para o banco de dados.
     private ConexaoDB conexaoDB;
     //cria uma variável para controle de dados na tabela
     private ContatoGrid contatoGrid;
-    
+
     public FrmContato() {
         initComponents();
-        
+
         //inicia com uma lista vazia dos contatos.
-        this.contatoGrid = new ContatoGrid( new ArrayList<>() );
-        TabelaContatos.setModel( this.contatoGrid );
-        
+        this.contatoGrid = new ContatoGrid(new ArrayList<>());
+        TabelaContatos.setModel(this.contatoGrid);
+
     }
+
+    /**
+     * Procedimento para tratar do controle de botões da Tela
+     *
+     * @param ativo parametro para identificar se está ativo ou não
+     */
+    private void ControleBotoes(boolean ativo) {
+        // Caso sucesso! habilita/desabilia os botões. 
+        btnListar.setEnabled(ativo);
+        btnAdicionar.setEnabled(ativo);
+        btnAlterar.setEnabled(ativo);
+        //inverte o status do parametro ativo. 
+        // se for true muda para false
+        // se for false muda para true 
+        btnConectar.setEnabled(!ativo);
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,6 +54,7 @@ public class FrmContato extends javax.swing.JFrame {
         btnConectar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         btnAdicionar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,17 +94,27 @@ public class FrmContato extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnConectar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdicionar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlterar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,7 +125,8 @@ public class FrmContato extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConectar)
                     .addComponent(btnListar)
-                    .addComponent(btnAdicionar))
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnAlterar))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
@@ -105,35 +135,30 @@ public class FrmContato extends javax.swing.JFrame {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         // TODO add your handling code here:
-        
+
         try {
             // criando o objeto conexaoDB utilizando o 1º método construtor
             conexaoDB = new ConexaoDB();
             // chamando a conexão para realizar o teste junto ao DB
             conexaoDB.getConexao();
-            // Caso sucesso! habilita o botão de listar. 
-            btnListar.setEnabled(true);
-            // Desabilita o botão de conectar
-            btnConectar.setEnabled(false);
-            // Habilita botão Adicionar
-            btnAdicionar.setEnabled(true);
+
+            //controla os botões da tela.
+            ControleBotoes(true);
+
         } catch (SQLException ex) {
             //caso erro! desabilita o botão listar
-            btnListar.setEnabled(false);
-            //Habilita o botão de conectar.
-            btnConectar.setEnabled(true);
-            // Desabilitar botão Adicionar
-            btnAdicionar.setEnabled(false);
+            ControleBotoes(false);
+
             //Mostra o erro ao Usuário
-            JOptionPane.showMessageDialog(rootPane, "Erro apresentado:\n"+
-                    ex.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Erro apresentado:\n"
+                    + ex.getMessage());
         }
-        
+
     }//GEN-LAST:event_btnConectarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:    
-        
+
         try {
             ContatoDao contatoDB = new ContatoDao(conexaoDB);
             contatoGrid = new ContatoGrid(contatoDB.getRegistros(""));
@@ -141,38 +166,86 @@ public class FrmContato extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         //Peço ao usuário para entrar com um Nome
-        String nome = JOptionPane.showInputDialog( "Informe o Nome:" );
+        String nome = JOptionPane.showInputDialog("Informe o Nome:");
         //System.out.println("Nome informado é: "+nome);
-        
+
         //se cancelou..
-        if (nome == null){
+        if (nome == null) {
             return; //isso é igual a abortar operação
         }
-        
+
         //Veifico se ele informou algum nome
-        if (nome.trim().length()==0){
-           JOptionPane.showMessageDialog(rootPane, "Você precisa "
-                   + "informar o nome do contato.");
-           return;
+        if (nome.trim().length() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Você precisa "
+                    + "informar o nome do contato.");
+            return;
         }
-        
+
         try {
             ContatoDao contatoDao = new ContatoDao(conexaoDB);
             Contato c = new Contato();
             c.setNome(nome);
-            contatoDao.Inserir( c );
-            
+            contatoDao.Inserir(c);
+
             btnListar.doClick();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // Vamos aqui alterar um registro
+
+        //pega a quantidade de registros na nossa tabela "grid"
+        int qtd = TabelaContatos.getRowCount();
+
+        if (qtd == 0) { //checa a qtde de registro é igual a zero.
+            JOptionPane.showMessageDialog(rootPane, "Não há registros!");
+            return;
+        }
+
+        qtd = TabelaContatos.getSelectedRowCount();
+        if (qtd == 0) { //checa a qtde de registro selecionados é igual a zero.
+            JOptionPane.showMessageDialog(rootPane, "Você não selecionou "
+                    + "nenhum registro!");
+            return;
+        }
+
+        //capturando o modelo de grid da tabela
+        ContatoGrid alt = (ContatoGrid) TabelaContatos.getModel();
+
+        //captura o item selecionado 
+        Contato c = alt.getItem(TabelaContatos.getSelectedRow());
+
+        String nome = JOptionPane.showInputDialog(rootPane,
+                "Nome do Contato:", c.getNome());
+
+        if (nome == null) {
+            return;
+        }
+
+        if (nome.equals(c.getNome())) {
+            return;
+        }
+
+        try {
+            ContatoDao contatoDao = new ContatoDao(conexaoDB);
+            System.out.println("Id Contato = "+ c.getId());
+            c.setNome(nome);
+            contatoDao.Gravar(c);
+
+            btnListar.doClick();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +285,7 @@ public class FrmContato extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaContatos;
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnListar;
     private javax.swing.JScrollPane jScrollPane1;
