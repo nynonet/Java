@@ -1,5 +1,6 @@
 package exemploaula.view;
 
+import exemploaula.Controller.ContatoController;
 import exemploaula.grids.ContatoGrid;
 import exemploaula.model.Contato;
 import exemploaula.model.dao.ConexaoDB;
@@ -25,7 +26,6 @@ public class FrmContato extends javax.swing.JFrame {
         //inicia com uma lista vazia dos contatos.
         this.contatoGrid = new ContatoGrid(new ArrayList<>());
         TabelaContatos.setModel(this.contatoGrid);
-
     }
 
     /**
@@ -178,18 +178,20 @@ public class FrmContato extends javax.swing.JFrame {
         if (nome == null) {
             return; //isso é igual a abortar operação
         }
+        
+        Contato c = new Contato();
+        c.setNome(nome);
+        
+        String valido = new ContatoController( c ).ValidaContato();
 
-        //Veifico se ele informou algum nome
-        if (nome.trim().length() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Você precisa "
-                    + "informar o nome do contato.");
+        //Verifica se o resultado é diferente de OK, sendo mostra a mensagem
+        if ( ! valido.equals("OK") ) {
+            JOptionPane.showMessageDialog(rootPane, valido );
             return;
         }
 
         try {
             ContatoDao contatoDao = new ContatoDao(conexaoDB);
-            Contato c = new Contato();
-            c.setNome(nome);
             contatoDao.Inserir(c);
 
             btnListar.doClick();
@@ -233,11 +235,20 @@ public class FrmContato extends javax.swing.JFrame {
         if (nome.equals(c.getNome())) {
             return;
         }
+        
+        c.setNome(nome);
+        
+        String valido = new ContatoController( c ).ValidaContato();
+        
+        if (! valido.equals("OK")) {
+            JOptionPane.showMessageDialog(rootPane, valido);
+            return;
+        }
 
         try {
             ContatoDao contatoDao = new ContatoDao(conexaoDB);
             System.out.println("Id Contato = "+ c.getId());
-            c.setNome(nome);
+            
             contatoDao.Gravar(c);
 
             btnListar.doClick();
