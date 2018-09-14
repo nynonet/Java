@@ -16,6 +16,7 @@ import net.nyno.Serial.Controller;
 public class ArduinoForm extends javax.swing.JFrame {
 
     private Controller arduino;
+    private int progresso;
 
     /**
      * Creates new form ArduinoForm
@@ -35,7 +36,11 @@ public class ArduinoForm extends javax.swing.JFrame {
             @Override
             public void run() {
                 while (true) {
-                    arduino.LerSerial(edMonitor);
+                    arduino.LerSerial(edMonitor, pbarCaixa);
+                    
+                    //mostra no progresso.
+//                    pbarCaixa.setValue(progresso);
+                    
                 }
             }
         }).start();
@@ -59,6 +64,7 @@ public class ArduinoForm extends javax.swing.JFrame {
         edPortas = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         edMonitor = new javax.swing.JTextArea();
+        pbarCaixa = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,9 +96,15 @@ public class ArduinoForm extends javax.swing.JFrame {
 
         edPortas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        edMonitor.setEditable(false);
         edMonitor.setColumns(20);
-        edMonitor.setRows(5);
+        edMonitor.setLineWrap(true);
         jScrollPane1.setViewportView(edMonitor);
+
+        pbarCaixa.setMaximum(255);
+        pbarCaixa.setToolTipText("");
+        pbarCaixa.setValue(55);
+        pbarCaixa.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,15 +121,17 @@ public class ArduinoForm extends javax.swing.JFrame {
                         .addComponent(cbCom)
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(108, 108, 108)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pbarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton1)
+                                    .addGap(108, 108, 108)
+                                    .addComponent(jButton2))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -136,8 +150,10 @@ public class ArduinoForm extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pbarCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,7 +191,7 @@ public class ArduinoForm extends javax.swing.JFrame {
         }
 
         try {
-            arduino.SendData("5");
+            arduino.SendData("1");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -189,7 +205,7 @@ public class ArduinoForm extends javax.swing.JFrame {
         }
 
         try {
-            arduino.SendData("5");
+            arduino.SendData("1");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -239,5 +255,6 @@ public class ArduinoForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar pbarCaixa;
     // End of variables declaration//GEN-END:variables
 }

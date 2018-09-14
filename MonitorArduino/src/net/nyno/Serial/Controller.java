@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
 /**
@@ -77,18 +78,41 @@ public class Controller {
     public void ClosePorta() throws IOException {
         outputStream.close();
     }
-    
+
     /**
-     * Ler dados da serial 
+     * Ler dados da serial
      */
-    public void LerSerial(JTextArea monitor){
+    public void LerSerial(JTextArea monitor, JProgressBar valor) {
         byte[] buffer = new byte[1024];
         int len = -1;
+        String old;
         try {
+            StringBuilder linha = new StringBuilder();
             while ((len = this.inputStream.read(buffer)) > -1) {
                 String r = new String(buffer, 0, len);
+//                System.out.println("valor real - "+ new String(buffer, 0, len));
                 monitor.append(r);
-                //System.out.print( r );
+//                try {
+//                    Thread.sleep(200);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                
+                linha.append(r);
+
+                if (linha.toString().contains(";")) {
+                    System.out.println("valor = " + linha);
+                    try {
+                        valor.setValue(Integer.parseInt(linha.substring(0, linha.length() - 1)));
+                    } catch (Exception e) {
+                        System.err.println(">>" + e.getMessage());
+                    }
+                    System.out.println(">>> " + linha);
+
+                    linha = new StringBuilder();
+                    r = "";
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,3 +162,36 @@ public class Controller {
     }
 
 }
+
+/**
+ exemplo do código arduino que foi utilizado.
+ 
+#define potPin 0
+#define ledPin 9
+
+int valPot = 0;
+int antes = -1;
+int delaytempo = 500;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  valPot =  analogRead(potPin);
+  valPot = map(valPot, 0, 1023, 0, 255);
+  
+  analogWrite(ledPin, valPot );
+  
+  if (antes != analogRead(potPin)) {
+    String valor = String(valPot) + ";";
+    Serial.print( valor );
+    antes = analogRead(potPin);
+  }
+  delay(delaytempo);
+}
+ 
+ 
+ */
