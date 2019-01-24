@@ -9,15 +9,8 @@ package fasb.edu.br.Model;
  *
  * @author andesonjesusdemenezes
  */
-public enum Tipo {
-    CREDITO(1), DEBITO(2);
-    int id;
+public interface TypeGrid {
 
-    private Tipo(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
+     public String getValueCol( String colname );
+    
 }

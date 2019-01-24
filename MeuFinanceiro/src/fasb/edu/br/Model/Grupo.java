@@ -11,11 +11,15 @@ import java.io.Serializable;
  *
  * @author andesonjesusdemenezes
  */
-public class Grupo implements Serializable {
+public class Grupo implements Serializable, TypeGrid {
     
     private int id;
     private String nome;
     private boolean fixo;
+
+    public Grupo() {
+        this.id = 0;
+    }
 
     public int getId() {
         return id;
@@ -39,6 +43,23 @@ public class Grupo implements Serializable {
 
     public void setFixo(boolean fixo) {
         this.fixo = fixo;
+    }
+    
+    public String getValueCol( String colname ){
+//        System.out.println("Coluna: "+ colname);
+        String value = "";
+        if (colname == "nome"){
+            value = this.nome;
+        }
+        
+        if (colname == "fixo"){
+            value = (this.fixo? "Sim":"Não");
+        }
+        
+        if (colname == "id"){
+            value = Integer.toString(this.id);
+        }
+        return value;
     }
     
     
