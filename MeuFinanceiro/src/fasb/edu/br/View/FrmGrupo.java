@@ -15,30 +15,30 @@ import fasb.edu.br.Model.Grupo;
 public class FrmGrupo extends javax.swing.JInternalFrame {
 
     private GrupoCtrl grupo;
-    
-    private class grid extends TabelasViews<Grupo>{
-        
+
+    private class grid extends TabelasViews<Grupo> {
+
         private String[] colDisplay = {"Nome", "Fixo"};
         private String[] colNames = {"nome", "fixo"};
 
         public grid() {
             setDados(grupo.DBSelectALL(), colDisplay, colNames);
-        }
+        }      
     }
-    
+
     /**
      * Creates new form FrmGrupo
      */
     public FrmGrupo() {
         initComponents();
         setVisible(true);
-        grupo = new GrupoCtrl();        
+        grupo = new GrupoCtrl();
         AtualizaTabela();
-        
+
     }
-    
-    public void AtualizaTabela(){
-        jTable1.setModel( new grid() );
+
+    public void AtualizaTabela() {
+        jTable1.setModel(new grid());
     }
 
     /**
@@ -78,6 +78,16 @@ public class FrmGrupo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTable1FocusGained(evt);
+            }
+        });
+        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTable1PropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Novo");
@@ -101,8 +111,6 @@ public class FrmGrupo extends javax.swing.JInternalFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-
-        jTextField1.setText("jTextField1");
 
         jLabel2.setText("Nome");
 
@@ -179,16 +187,24 @@ public class FrmGrupo extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
+
         Grupo g = new Grupo();
         g.setFixo(jCheckBox1.isSelected());
         g.setNome(jTextField1.getText());
-        
+
         grupo.DBPost(g);
-        
+
         AtualizaTabela();
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1FocusGained
+
+    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+        // TODO add your handling code here:        
+    }//GEN-LAST:event_jTable1PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

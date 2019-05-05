@@ -5,13 +5,12 @@
  */
 package fasb.edu.br.Model;
 
-import java.io.Serializable;
 
 /**
  *
  * @author andesonjesusdemenezes
  */
-public class Conta implements Serializable{
+public class Conta {
     private int id;
     private String nome;
     private boolean banco;

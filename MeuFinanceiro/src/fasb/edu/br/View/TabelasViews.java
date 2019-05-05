@@ -5,9 +5,11 @@
  */
 package fasb.edu.br.View;
 
-import fasb.edu.br.Model.TypeGrid;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
+
+import fasb.edu.br.Model.TypeGrid;
 
 /**
  *

@@ -18,8 +18,8 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public frmPrincipal() {
         initComponents();
-        setSize(800, 600);
-        
+//        setSize(1024, 768);
+        setState(MAXIMIZED_BOTH);
         Conexao.getConexao();
     }
 

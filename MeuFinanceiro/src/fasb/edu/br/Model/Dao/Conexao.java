@@ -28,7 +28,9 @@ public class Conexao {
     
     private static boolean conectar(){
         String url = "jdbc:sqlite:myfinance.db";
+
         try {
+
             con = DriverManager.getConnection(url);
             System.out.println("Conectado com sucesso!");
         } catch (SQLException e) {

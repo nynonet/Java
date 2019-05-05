@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="myfinance.db" uuid="aa93d5e1-d2d2-4623-ab3d-b31f81288b40">
+      <database-info product="SQLite" version="3.23.1" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.23.1" dbms="SQLITE" exact-version="3.23.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <auth-required>false</auth-required>
+      <introspection-schemas>*:main</introspection-schemas>
+    </data-source>
+  </component>
+</project>
